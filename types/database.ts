@@ -97,6 +97,12 @@ export interface MaintenancePlanItem {
   urgency: 'low' | 'medium' | 'high' | 'critical'
   status: 'planned' | 'in_progress' | 'done'
   notes: string
+  /** Käyttöikä vuosina (esim. 40) */
+  service_life_years: number | null
+  /** Huoltoväli vuosina (esim. 10) */
+  maintenance_interval_years: number | null
+  /** Priorisointi-kategoria (esim. "Kiireellinen", "Suositeltava", "Seurattava") */
+  priority_category: string
   created_at: string
   updated_at: string
 }

@@ -82,14 +82,34 @@ export default async function MaintenancePlanPage() {
                       <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${urgencyColor[item.urgency]}`}>
                         {urgencyLabel[item.urgency]}
                       </span>
+                      {item.priority_category && (
+                        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-violet-100 text-violet-800">
+                          {item.priority_category}
+                        </span>
+                      )}
                     </div>
                     {item.description && (
                       <p className="text-sm text-slate-600 mt-1">{item.description}</p>
                     )}
-                    {item.estimated_cost != null && (
-                      <p className="text-xs text-slate-400 mt-1">
-                        Arvioitu kustannus: {item.estimated_cost.toLocaleString('fi-FI')} €
-                      </p>
+                    <div className="flex flex-wrap gap-x-4 gap-y-0.5 mt-1">
+                      {item.estimated_cost != null && (
+                        <p className="text-xs text-slate-400">
+                          Arvioitu kustannus: <span className="font-medium text-slate-600">{item.estimated_cost.toLocaleString('fi-FI')} €</span>
+                        </p>
+                      )}
+                      {item.service_life_years != null && (
+                        <p className="text-xs text-slate-400">
+                          Käyttöikä: <span className="font-medium text-slate-600">{item.service_life_years} v</span>
+                        </p>
+                      )}
+                      {item.maintenance_interval_years != null && (
+                        <p className="text-xs text-slate-400">
+                          Huoltoväli: <span className="font-medium text-slate-600">{item.maintenance_interval_years} v</span>
+                        </p>
+                      )}
+                    </div>
+                    {item.notes && (
+                      <p className="text-xs text-slate-500 mt-1 italic">{item.notes}</p>
                     )}
                   </div>
                   <div className="flex items-center gap-3 shrink-0">

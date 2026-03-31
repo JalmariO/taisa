@@ -28,6 +28,9 @@ export default function MaintenancePlanForm({ initial }: Props) {
     urgency: initial?.urgency ?? 'medium',
     status: initial?.status ?? 'planned',
     notes: initial?.notes ?? '',
+    service_life_years: initial?.service_life_years ?? '',
+    maintenance_interval_years: initial?.maintenance_interval_years ?? '',
+    priority_category: initial?.priority_category ?? '',
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -45,6 +48,8 @@ export default function MaintenancePlanForm({ initial }: Props) {
       ...form,
       planned_year: form.planned_year === '' ? null : Number(form.planned_year),
       estimated_cost: form.estimated_cost === '' ? null : Number(form.estimated_cost),
+      service_life_years: form.service_life_years === '' ? null : Number(form.service_life_years),
+      maintenance_interval_years: form.maintenance_interval_years === '' ? null : Number(form.maintenance_interval_years),
       updated_at: new Date().toISOString(),
     }
 
@@ -88,6 +93,28 @@ export default function MaintenancePlanForm({ initial }: Props) {
             <label className="block text-sm font-medium text-slate-700 mb-1">Arvioitu kustannus (€)</label>
             <input type="number" step="0.01" className={inputCls} value={form.estimated_cost}
               onChange={(e) => set('estimated_cost', e.target.value)} placeholder="esim. 50000" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Käyttöikä (vuotta)</label>
+            <input type="number" className={inputCls} value={form.service_life_years}
+              onChange={(e) => set('service_life_years', e.target.value)} placeholder="esim. 40" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Huoltoväli (vuotta)</label>
+            <input type="number" className={inputCls} value={form.maintenance_interval_years}
+              onChange={(e) => set('maintenance_interval_years', e.target.value)} placeholder="esim. 10" />
+          </div>
+
+          <div className="sm:col-span-2">
+            <label className="block text-sm font-medium text-slate-700 mb-1">Priorisointi-kategoria</label>
+            <select className={selectCls} value={form.priority_category} onChange={(e) => set('priority_category', e.target.value)}>
+              <option value="">– Ei valittu –</option>
+              <option value="Kiireellinen">Kiireellinen</option>
+              <option value="Suositeltava">Suositeltava</option>
+              <option value="Seurattava">Seurattava</option>
+            </select>
           </div>
 
           <div>
