@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc; /* slate-50 — warm off-white, not clinical */
+  --foreground: #0f172a; /* slate-900 — near-black, crisp contrast */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media print {
+  /* Hide navigation and UI chrome when printing */
+  nav,
+  .print\:hidden {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}
