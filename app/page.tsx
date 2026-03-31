@@ -1,5 +1,4 @@
-import { redirect } from 'next/navigation'
-
+// Root redirect is handled in next.config.ts
 export default function RootPage() {
-  redirect('/dashboard')
+  return null
 }

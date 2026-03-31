@@ -1,7 +1,7 @@
 import { redirect, notFound } from 'next/navigation'
 import { getUser, createServerSupabaseClient } from '@/lib/auth'
 import CertificateForm from '../../CertificateForm'
-import type { ManagerCertificate, CompanyInfo } from '@/types/database'
+import type { ManagerCertificate, CompanyInfo, Renovation } from '@/types/database'
 
 export default async function EditCertificatePage({
   params,
@@ -13,9 +13,12 @@ export default async function EditCertificatePage({
   if (!user) redirect('/login')
 
   const supabase = await createServerSupabaseClient()
-  const [{ data: cert }, { data: company }] = await Promise.all([
+  const [{ data: cert }, { data: company }, { data: renovations }] = await Promise.all([
     supabase.from('manager_certificates').select('*').eq('id', id).single(),
     supabase.from('company_info').select('*').eq('id', 1).single(),
+    supabase.from('renovations').select('*')
+      .in('renovation_type', ['ongoing', 'completed'])
+      .order('end_date', { ascending: false }),
   ])
 
   if (!cert) notFound()
@@ -26,6 +29,7 @@ export default async function EditCertificatePage({
       <CertificateForm
         initial={cert as ManagerCertificate}
         company={company as CompanyInfo | null}
+        renovations={(renovations as Renovation[]) ?? []}
       />
     </div>
   )

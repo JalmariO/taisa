@@ -3,6 +3,7 @@ import { getUser, createServerSupabaseClient } from '@/lib/auth'
 import Card from '@/components/ui/Card'
 import Link from 'next/link'
 import type { ManagerCertificate } from '@/types/database'
+import DeleteButton from '@/components/ui/DeleteButton'
 
 export default async function CertificatesPage() {
   const user = await getUser()
@@ -45,7 +46,7 @@ export default async function CertificatesPage() {
                     {c.created_by && ` · ${c.created_by}`}
                   </p>
                 </div>
-                <div className="flex gap-3 shrink-0">
+                <div className="flex gap-3 shrink-0 items-center">
                   <Link href={`/certificates/${c.id}`}
                     className="text-xs text-teal-600 hover:text-teal-800 hover:underline transition-colors">
                     Avaa / Tulosta
@@ -54,6 +55,12 @@ export default async function CertificatesPage() {
                     className="text-xs text-slate-500 hover:text-slate-700 hover:underline transition-colors">
                     Muokkaa
                   </Link>
+                  <DeleteButton
+                    id={c.id}
+                    table="manager_certificates"
+                    redirectTo="/certificates"
+                    label="Poista"
+                  />
                 </div>
               </div>
             </Card>

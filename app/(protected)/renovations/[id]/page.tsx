@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { Renovation, RenovationTask, Attachment } from '@/types/database'
 import TaskList from './TaskList'
 import AttachmentPanel from '@/components/AttachmentPanel'
+import DeleteButton from '@/components/ui/DeleteButton'
 
 const typeLabel: Record<Renovation['renovation_type'], string> = {
   planned: 'Suunniteltu', ongoing: 'Käynnissä', completed: 'Valmis',
@@ -59,10 +60,18 @@ export default async function RenovationDetailPage({
             <p className="mt-1 text-sm text-slate-600">{r.description}</p>
           )}
         </div>
-        <Link href={`/renovations/${id}/edit`}
-          className="shrink-0 text-sm text-teal-600 hover:text-teal-800 border border-teal-200 hover:border-teal-400 px-3 py-1.5 rounded-lg transition-colors">
-          Muokkaa
-        </Link>
+        <div className="flex items-center gap-3 shrink-0">
+          <DeleteButton
+            id={id}
+            table="renovations"
+            redirectTo="/renovations"
+            label="Poista"
+          />
+          <Link href={`/renovations/${id}/edit`}
+            className="text-sm text-teal-600 hover:text-teal-800 border border-teal-200 hover:border-teal-400 px-3 py-1.5 rounded-lg transition-colors">
+            Muokkaa
+          </Link>
+        </div>
       </div>
 
       {/* Details */}

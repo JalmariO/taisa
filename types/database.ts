@@ -20,6 +20,7 @@ export type AttachmentEntityType =
   | 'maintenance_plan'
   | 'maintenance_request'
   | 'announcement'
+  | 'certificate'
 
 export interface Attachment {
   id: string
@@ -57,12 +58,33 @@ export interface CompanyInfo {
   plot_area_m2: number | null
   property_id: string
   apartment_count: number | null
+  total_shares: number | null
   manager_name: string
   manager_email: string
   manager_phone: string
   auditor_name: string
   board_chair_name: string
   bank_account: string
+  // Rekisteritiedot
+  trade_register_date: string | null
+  articles_date: string | null
+  // Tontti
+  plot_type: string
+  plot_lease_end: string | null
+  plot_landlord: string
+  building_rights_unused: string
+  // Rakennus
+  building_count: number | null
+  building_type: string
+  building_material: string
+  floors: number | null
+  roof_type: string
+  roof_material: string
+  heating_system: string
+  ventilation_system: string
+  antenna_system: string
+  insurance_company: string
+  parking_info: string
   updated_at: string
 }
 
@@ -84,6 +106,8 @@ export interface Renovation {
   name: string
   description: string
   renovation_type: 'planned' | 'ongoing' | 'completed'
+  fiscal_year: number | null       // Tilikausi / suoritusvuosi
+  renovation_category: string      // Vapaa kategoria (Katto, LVIS, …)
   start_date: string | null
   end_date: string | null
   total_cost: number | null
@@ -116,13 +140,21 @@ export interface ManagerCertificate {
   share_count: number | null
   floor_area_m2: number | null
   rooms: string
+  apartment_purpose: string
+  ownership_percentage: string
   debt_free_price: number | null
   loan_share: number | null
+  overdue_payments: number | null
   maintenance_charge: number | null
+  maintenance_charge_basis: string
   financing_charge: number | null
   other_charges: string
+  water_charge: string
   encumbrances: string
+  restrictions: string
   remarks: string
+  included_renovations: string[]   // JSONB array of strings
+  requester_apartment: string
   created_by: string
   created_at: string
 }
